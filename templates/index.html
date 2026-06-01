@@ -18,14 +18,18 @@
             <a href="#" class="nav-logo">
                 <img src="{{ url_for('static', filename='images/fortunelogo.png') }}" alt="Fortune Elements">
             </a>
-            <div class="nav-links">
+            <div class="nav-links" id="navLinks">
                 <a href="#highlights">Highlights</a>
                 <a href="#amenities">Amenities</a>
                 <a href="#map-section">Location</a>
                 <a href="#contact">Contact</a>
             </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
+    <div class="nav-overlay" id="navOverlay"></div>
 
     <!-- ═══ HERO ═══ -->
     <section class="hero" id="hero">
@@ -39,6 +43,7 @@
             <h1 class="hero-title">Fortune <span>Elements</span></h1>
             <p class="hero-subtitle">Ultra Luxury Living</p>
             <div class="hero-line"></div>
+            <p class="hero-rera">RERA: PCGRERA070723001649</p>
         </div>
         <div class="scroll-indicator" id="scrollIndicator">
             <div class="mouse"></div>

@@ -115,6 +115,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ─── MOBILE MENU ───
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    const navOverlay = document.getElementById('navOverlay');
+
+    function closeMenu() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+        if (navOverlay) navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function openMenu() {
+        hamburger.classList.add('active');
+        navLinks.classList.add('open');
+        if (navOverlay) navOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            if (navLinks.classList.contains('open')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        if (navOverlay) {
+            navOverlay.addEventListener('click', closeMenu);
+        }
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 });

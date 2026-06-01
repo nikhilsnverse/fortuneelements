@@ -272,6 +272,17 @@ a { text-decoration: none; color: inherit; }
     to { width: 200px; }
 }
 
+.hero-rera {
+    font-family: var(--font-sans);
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 20px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: titleReveal 2s ease forwards 2s;
+}
+
 .scroll-indicator {
     position: absolute;
     bottom: 40px;
@@ -877,19 +888,312 @@ a { text-decoration: none; color: inherit; }
 .amenity-item:nth-child(13) { --i: 12; }
 .amenity-item:nth-child(14) { --i: 13; }
 
-/* ─── RESPONSIVE ─── */
+/* ─── HAMBURGER ─── */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 1000;
+    padding: 0;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: rgba(255,255,255,0.8);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.navbar.scrolled .hamburger span {
+    background: var(--text-dark);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── NAV OVERLAY ─── */
+.nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 997;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── BASE FLUID IMPROVEMENTS ─── */
+html { font-size: 16px; }
+@media (min-width: 1600px) { html { font-size: 18px; } }
+@media (min-width: 2000px) { html { font-size: 20px; } }
+@media (max-width: 480px) { html { font-size: 14px; } }
+@media (max-width: 360px) { html { font-size: 13px; } }
+
+.container { padding: 0 40px; }
+@media (max-width: 900px) { .container { padding: 0 28px; } }
+@media (max-width: 600px) { .container { padding: 0 20px; } }
+@media (max-width: 400px) { .container { padding: 0 14px; } }
+
+/* ─── 4K / TV : 1600px+ ─── */
+@media (min-width: 1600px) {
+    .container { max-width: 1600px; padding: 0 60px; }
+    .section { padding: 140px 0; }
+    .hero-title { font-size: clamp(4rem, 7vw, 8rem); letter-spacing: 24px; }
+    .hero-subtitle { font-size: clamp(1.2rem, 1.8vw, 2rem); letter-spacing: 20px; }
+    .hero-content .logo { width: 130px; margin-bottom: 40px; }
+    .highlights-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .highlight-card { padding: 56px 44px; }
+    .amenities-grid { grid-template-columns: repeat(7, 1fr); gap: 20px; }
+    .amenity-item { padding: 32px 18px; }
+    .amenity-item .icon { font-size: 2.4rem; }
+    .amenity-item span { font-size: 0.9rem; letter-spacing: 3px; }
+    .map-wrapper { height: 520px; }
+    .map-wrapper .map-overlay { padding: 28px 36px; top: 30px; right: 30px; }
+    .map-wrapper .map-overlay p { font-size: 1rem; }
+    .section-title { font-size: clamp(2.8rem, 4vw, 4.5rem); letter-spacing: 14px; }
+    .section-label { font-size: 0.75rem; letter-spacing: 8px; }
+    .section-divider { width: 60px; }
+    .nav-inner { max-width: 1600px; padding: 0 60px; }
+    .nav-logo img { height: 44px; }
+    .nav-links { gap: 50px; }
+    .nav-links a { font-size: 0.8rem; letter-spacing: 4px; }
+    .contact-wrapper { gap: 80px; }
+    .contact-info .value { font-size: 1.6rem; }
+    .contact-info .label { font-size: 1.1rem; }
+    .navbar { padding: 20px 0; }
+    .navbar.scrolled { padding: 14px 0; }
+    .divider-wave svg { height: 80px; }
+    .hero-rera { font-size: 0.7rem; letter-spacing: 4px; margin-top: 28px; }
+    .footer p { font-size: 0.9rem; }
+}
+
+/* ─── DESKTOP HD : 1400–1599px ─── */
+@media (min-width: 1400px) and (max-width: 1599px) {
+    .highlights-grid { grid-template-columns: repeat(3, 1fr); }
+    .amenities-grid { grid-template-columns: repeat(7, 1fr); }
+}
+
+/* ─── SMALL DESKTOP / TABLET LANDSCAPE : 1025–1199px ─── */
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .highlights-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .highlight-card { padding: 40px 30px; }
+    .amenities-grid { grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .container { padding: 0 32px; }
+}
+
+/* ─── TABLET : 769–1024px ─── */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hamburger { display: flex; }
+    .container { padding: 0 28px; }
+    .section { padding: 80px 0; }
+    .hero-title { font-size: clamp(2.8rem, 8vw, 4.5rem); letter-spacing: 10px; }
+    .hero-subtitle { font-size: clamp(0.9rem, 2.5vw, 1.3rem); letter-spacing: 10px; }
+    .hero-content .logo { width: 80px; margin-bottom: 24px; }
+    .highlights-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .highlight-card { padding: 40px 30px; }
+    .highlight-card h3 { font-size: 1.1rem; letter-spacing: 4px; }
+    .amenities-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .amenity-item { padding: 22px 14px; }
+    .amenity-item .icon { font-size: 1.7rem; }
+    .section-title { letter-spacing: 8px; font-size: clamp(2rem, 5vw, 3rem); }
+    .section-label { font-size: 0.6rem; letter-spacing: 5px; }
+    .section-divider { width: 42px; }
+    .map-wrapper { height: 380px; }
+    .map-wrapper .map-overlay { top: 16px; right: 16px; padding: 16px 22px; }
+    .contact-info .value { font-size: 1.2rem; }
+    .contact { padding: 80px 0; }
+    .map-section { padding: 80px 0; }
+    .scroll-indicator { bottom: 30px; }
+    .scroll-indicator .mouse { width: 20px; height: 32px; }
+
+    /* Mobile nav */
+    .nav-inner { padding: 0 28px; }
+    .nav-logo img { height: 30px; }
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 340px;
+        height: 100vh;
+        flex-direction: column;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 110px 36px 36px;
+        gap: 6px;
+        transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 998;
+        box-shadow: -5px 0 30px rgba(0,0,0,0.08);
+        align-items: flex-start;
+    }
+    .nav-links.open { right: 0; }
+    .nav-links a {
+        font-size: 0.85rem;
+        letter-spacing: 4px;
+        color: var(--text-dark) !important;
+        padding: 16px 0;
+        width: 100%;
+        border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    .nav-links a::after { display: none; }
+    .decor-dots { display: none; }
+}
+
+/* ─── MOBILE LARGE / TABLET SMALL : 601–768px ─── */
 @media (max-width: 768px) {
     .container { padding: 0 20px; }
-    .section { padding: 80px 0; }
-    .hero-title { letter-spacing: 10px; }
-    .hero-subtitle { letter-spacing: 8px; }
-    .highlights-grid { grid-template-columns: 1fr; }
-    .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+    .section { padding: 60px 0; }
+    .hero-title { letter-spacing: 6px; font-size: clamp(2rem, 10vw, 3.5rem); }
+    .hero-subtitle { letter-spacing: 6px; font-size: clamp(0.8rem, 3vw, 1.2rem); margin-bottom: 30px; }
+    .hero-content .logo { width: 70px; margin-bottom: 20px; }
+    .hero-line { display: none; }
+    .highlights-grid { grid-template-columns: 1fr; gap: 20px; }
+    .amenities-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
     .contact-wrapper { flex-direction: column; gap: 30px; }
-    .map-wrapper { height: 300px; }
-    .map-wrapper .map-overlay { top: 10px; right: 10px; padding: 14px 18px; }
-    .nav-links { gap: 20px; }
-    .nav-links a { font-size: 0.6rem; letter-spacing: 2px; }
+    .contact { padding: 60px 0; }
+    .map-section { padding: 60px 0; }
+    .map-wrapper { height: 280px; }
+    .map-wrapper .map-overlay { top: 10px; right: 10px; padding: 12px 16px; max-width: calc(100% - 20px); }
+    .map-wrapper .map-overlay p { font-size: 0.75rem; }
+
     .nav-inner { padding: 0 20px; }
     .nav-logo img { height: 28px; }
+
+    .hamburger { display: flex; }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        max-width: 320px;
+        height: 100vh;
+        flex-direction: column;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 100px 40px 40px;
+        gap: 8px;
+        transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 998;
+        box-shadow: -5px 0 30px rgba(0,0,0,0.08);
+        align-items: flex-start;
+    }
+
+    .nav-links.open { right: 0; }
+
+    .nav-links a {
+        font-size: 0.85rem;
+        letter-spacing: 4px;
+        color: var(--text-dark) !important;
+        padding: 14px 0;
+        width: 100%;
+        border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    .nav-links a::after { display: none; }
+
+    .contact-info .value { font-size: 1.1rem; }
+    .contact-info p { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .contact-info .label { min-width: auto; font-size: 0.8rem; }
+
+    .highlight-card { padding: 36px 28px; }
+    .highlight-card h3 { font-size: 1.1rem; letter-spacing: 3px; }
+    .highlight-card p { font-size: 0.9rem; }
+    .highlight-card .icon { font-size: 2rem; }
+
+    .section-title { letter-spacing: 6px; font-size: clamp(1.6rem, 6vw, 2.5rem); margin-bottom: 20px; }
+    .section-label { font-size: 0.55rem; letter-spacing: 4px; margin-bottom: 10px; }
+    .section-divider { width: 36px; margin-bottom: 30px; }
+
+    .scroll-indicator { bottom: 24px; }
+    .scroll-indicator .mouse { width: 18px; height: 30px; }
+    .hero-rera { font-size: 0.5rem; letter-spacing: 2px; margin-top: 14px; }
+
+    .amenity-item { padding: 20px 12px; }
+    .amenity-item .icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .amenity-item span { font-size: 0.65rem; letter-spacing: 1px; }
+
+    .footer { padding: 30px 0; }
+    .footer p { font-size: 0.7rem; }
+
+    .decor-dots { display: none; }
+}
+
+/* ─── MOBILE SMALL : 480–600px ─── */
+@media (max-width: 600px) {
+    .amenities-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .amenity-item { padding: 18px 12px; }
+    .hero-title { letter-spacing: 5px; }
+    .hero-subtitle { letter-spacing: 5px; }
+    .nav-links { width: 80%; padding: 95px 28px 28px; }
+}
+
+/* ─── MOBILE X-SMALL : ≤479px ─── */
+@media (max-width: 479px) {
+    .container { padding: 0 14px; }
+    .section { padding: 50px 0; }
+    .hero-title { letter-spacing: 3px; font-size: clamp(1.6rem, 12vw, 2.5rem); }
+    .hero-subtitle { letter-spacing: 3px; font-size: clamp(0.65rem, 3.5vw, 1rem); margin-bottom: 24px; }
+    .hero-content .logo { width: 55px; margin-bottom: 16px; }
+    .amenities-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .amenity-item { padding: 14px 8px; }
+    .amenity-item .icon { font-size: 1.2rem; margin-bottom: 6px; }
+    .amenity-item span { font-size: 0.55rem; letter-spacing: 1px; }
+    .highlight-card { padding: 24px 18px; }
+    .highlight-card h3 { font-size: 1rem; letter-spacing: 2px; }
+    .highlight-card p { font-size: 0.85rem; }
+    .highlight-card .icon { font-size: 1.6rem; }
+    .map-wrapper { height: 200px; }
+    .map-wrapper .map-overlay { padding: 10px 12px; }
+    .map-wrapper .map-overlay p { font-size: 0.65rem; }
+    .nav-links { width: 85%; padding: 85px 20px 20px; max-width: 280px; }
+    .nav-links a { font-size: 0.75rem; padding: 12px 0; letter-spacing: 3px; }
+    .contact-info .value { font-size: 0.95rem; }
+    .contact-info .label { font-size: 0.7rem; }
+    .contact { padding: 50px 0; }
+    .map-section { padding: 50px 0; }
+    .section-title { letter-spacing: 4px; margin-bottom: 16px; }
+    .section-label { font-size: 0.5rem; letter-spacing: 3px; }
+    .section-divider { width: 30px; margin-bottom: 24px; }
+    .scroll-indicator { bottom: 18px; }
+    .scroll-indicator .mouse { width: 16px; height: 26px; }
+    .hero-rera { font-size: 0.45rem; letter-spacing: 1px; margin-top: 12px; }
+    .footer { padding: 24px 0; }
+    .footer p { font-size: 0.6rem; letter-spacing: 1px; }
 }
