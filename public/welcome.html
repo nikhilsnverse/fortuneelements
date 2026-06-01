@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Elements</title>
+    <link rel="icon" href="/static/images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; background: #fff; font-family: 'Cormorant Garamond', serif; }
+
+        .welcome-container {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .welcome-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(13,59,30,0.9) 0%, rgba(26,107,60,0.6) 50%, rgba(13,59,30,0.9) 100%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.5s;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        .logo {
+            width: 120px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .brand-name {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 14px;
+            color: #c9a84c;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 0 0 50px rgba(201,168,76,0.25);
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 10px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+        }
+
+        .loading-bar {
+            position: absolute;
+            bottom: 60px;
+            width: 200px;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-bar-inner {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #c9a84c, #ffffff);
+            border-radius: 2px;
+            animation: loadProgress 4s ease forwards 1s;
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0; }
+            70% { width: 70%; }
+            85% { width: 85%; }
+            100% { width: 100%; }
+        }
+
+        .skip-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 5;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.4);
+            padding: 8px 24px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .skip-btn:hover {
+            border-color: #c9a84c;
+            color: #c9a84c;
+        }
+
+        @media (max-width: 1024px) {
+            .brand-name { font-size: 3rem; letter-spacing: 10px; }
+            .tagline { font-size: 1.2rem; letter-spacing: 8px; }
+        }
+
+        @media (max-width: 768px) {
+            .brand-name { font-size: 2.5rem; letter-spacing: 8px; }
+            .tagline { font-size: 1rem; letter-spacing: 6px; }
+            .logo { width: 80px; }
+            .loading-bar { width: 160px; bottom: 40px; }
+            .skip-btn { bottom: 16px; right: 16px; font-size: 0.85rem; padding: 6px 18px; }
+        }
+
+        @media (max-width: 480px) {
+            .brand-name { font-size: 1.8rem; letter-spacing: 5px; }
+            .tagline { font-size: 0.8rem; letter-spacing: 4px; }
+            .logo { width: 60px; margin-bottom: 14px; }
+            .loading-bar { width: 130px; bottom: 30px; height: 1.5px; }
+            .skip-btn { bottom: 12px; right: 12px; font-size: 0.75rem; padding: 5px 14px; letter-spacing: 2px; }
+        }
+
+        @media (min-width: 1400px) {
+            .brand-name { font-size: 5rem; letter-spacing: 18px; }
+            .tagline { font-size: 1.8rem; letter-spacing: 14px; }
+            .logo { width: 150px; margin-bottom: 30px; }
+            .loading-bar { width: 280px; bottom: 80px; height: 3px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <video class="welcome-video" autoplay muted playsinline preload="auto" id="welcomeVideo">
+            <source src="/static/videos/welcomeanimation.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="overlay">
+        <img src="/static/images/fortunelogo.png" alt="Fortune Elements" class="logo">
+        <div class="brand-name">Fortune Elements</div>
+        <div class="tagline">Where Luxury Begins</div>
+        <div class="loading-bar">
+            <div class="loading-bar-inner"></div>
+        </div>
+    </div>
+
+    <button class="skip-btn" id="skipBtn">Skip</button>
+
+    <script>
+        const video = document.getElementById('welcomeVideo');
+
+        video.addEventListener('ended', () => {
+            window.location.href = "/";
+        });
+
+        document.getElementById('skipBtn').addEventListener('click', () => {
+            window.location.href = "/";
+        });
+
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 9000);
+    </script>
+</body>
+</html>
